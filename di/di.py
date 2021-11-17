@@ -106,3 +106,17 @@ class Di:
         :return:
         """
         return list(self._registry.keys())
+
+    def remove(self, name: str):
+        """
+        Removes a registered dependency
+        :param name:
+        :return:
+        """
+        if self.has(name):
+            del self._registry[name]
+            # clear lru_cache cache
+            self.get.cache_clear()
+        else:
+            raise RuntimeError("Dependency name '{}' not found in the registry".format(name))
+

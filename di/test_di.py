@@ -100,3 +100,17 @@ class TestDi:
         assert isinstance(local_di.get('global-item-will-be-shadowed'), Dummy) is True
         # test shadowed global dependency remains unchanged
         assert isinstance(di.get('global-item-will-be-shadowed'), Dummy2) is True
+
+    def test_remove(self):
+        di = Di()
+        # test simple add with a dummy item
+        for i in range(0, 10):
+            name = self.item_mask.format(i)
+            di.add(name, Dummy)
+            assert di.has(name) is True
+            di.remove(name)
+            assert di.has(name) is False
+
+        # attempt to remove non-existing item
+        with pytest.raises(RuntimeError):
+            di.remove("foo_object")
