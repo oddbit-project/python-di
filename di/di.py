@@ -119,4 +119,3 @@ class Di:
             self.get.cache_clear()
         else:
             raise RuntimeError("Dependency name '{}' not found in the registry".format(name))
-
